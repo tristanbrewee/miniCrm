@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Community: specific</title>
+    <!-- Favicon-->
+    <!--  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
+    <!-- Bootstrap icons-->
+    <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />-->
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <link href="../../static/css/styles.css" rel="stylesheet"/>
+    <!-- Ignore stylesheet -->
+    <link href="../../static/css/ignore.css" rel="stylesheet"/>
+    <!-- Icon Kit - Font Awesome-->
+    <script src="https://kit.fontawesome.com/8933c2663a.js" crossorigin="anonymous"></script>
+</head>
+<body class="bodyMargins">
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-lg-5">
+        <a class="navbar-brand" th:href="@{/}">Mini CRM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" aria-current="page" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/person}">Person</a></li>
+                <li class="nav-item"><a class="nav-link active" th:href="@{/community}">Community</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/event}">Event</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="py-5">
+    <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+            <div class="m-4 m-lg-5">
+                <h1 class="display-5 fw-bold" th:text="${specificCommunity.getDescription()}"></h1>
+                <p class="fs-4">Edit a specific community. Add or delete members. Click on the linked events to edit
+                    those.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Members -->
+<section class="pt-4">
+    <div class="container px-lg-5">
+        <div class="row gx-lg-5">
+            <div class="col-lg-12 col-xxl-12 mb-12">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center">
+                        <h1>Members</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">last name</th>
+                                <th scope="col">first name</th>
+                                <th scope="col">since</th>
+                                <th scope="col">until</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td><a th:href="@{/community/getAddNewPersons/{id} (id= ${specificCommunity.getCommunityId().toString()})}">Add new member</a></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr th:each="completeMember, i : ${completeMembers}" th:if="${not #lists.isEmpty(completeMembers)}">
+                                <td th:text="${completeMember.getLastName()}"></td>
+                                <td th:text="${completeMember.getFirstName()}"></td>
+                                <td th:text="${completeMember.getSince()}"></td>
+                                <td th:text="${completeMember.getUntil()}"></td>
+                                <td th:if="${completeMember.getUntil() == null}">
+                                    <a th:href="@{/community/unsubscribePerson/{id}(id=${completeMember.getPersonId().toString()} + ':' + ${specificCommunity.getCommunityId()})}">unsubscribe</a>
+                                </td>
+                                <td th:if="${completeMember.getUntil() != null}">
+                                    <a th:href="@{/community/subscribePerson/{id}(id=${completeMember.getPersonId().toString()} + ':' + ${specificCommunity.getCommunityId()})}">subscribe</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p th:if="${#lists.isEmpty(completeMembers)}">
+                            There are no members in this community...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Events -->
+<section class="pt-4">
+    <div class="container px-lg-5">
+        <div class="row gx-lg-5">
+            <div class="col-lg-12 col-xxl-12 mb-12">
+                <div class="card bg-light border-0 h-100">
+                    <div class="card-body text-center">
+                        <h1>Events</h1>
+                        <table class="table table-striped">
+                            <thead class="thead-dark">
+                            <tr>
+                                <th>description</th>
+                                <th>date</th>
+                                <th>time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="event, i : ${events}" th:if="${not #lists.isEmpty(events)}">
+                                <td>
+                                    <a th:text="${event.getDescription()}" th:href="@{/event/specific/{id} (id = ${event.getEventId().toString()})}"></a>
+                                </td>
+                                <td th:text="${event.getEventDate}"></td>
+                                <td th:text="${event.getEventTime()}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p th:if="${#lists.isEmpty(events)}">
+                            There are no events linked to this community...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<a href="javascript:window.history.back()">
+    <i class="fas fa-long-arrow-alt-left"></i> Back
+</a>
+<!-- Footer-->
+<footer class="py-5 bg-dark footerBottom">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Tristan Brewee - 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

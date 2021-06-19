@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Persons</title>
+  <link rel="stylesheet" th:href="@{../static/styles/general.css}" />
+</head>
+<body>
+
+<h1>New event</h1>
+
+<form method="post" th:object="${newEvent}" th:action="@{/event/createNewEvent}">
+  <label for="description">Description:</label>
+  <input type="text" id="description" th:id="description" th:name="description" th:placeholder="description">
+  <label for="date">Date:</label>
+  <input type="date" id="date" th:id="dateString" th:name="dateString"
+         th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(T(java.time.LocalDate).now())}">
+  <label for="time">Time:</label>
+  <input type="time" id="time" th:id="timeString" th:name="timeString"
+         th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localTimeToString(T(java.time.LocalTime).now())}">
+  <label for="community">Community:</label>
+  <select id="community" th:id="communityString" th:name="communityString">
+    <option th:each="community, i : ${communities}" th:value="${community.getDescription()}" th:text="${community.getDescription()}"
+    th:selected="${communities.get(0).getDescription()}"></option>
+  </select>
+  <input type="submit" th:value="'Create event'">
+</form>
+
+</body>
+</html>

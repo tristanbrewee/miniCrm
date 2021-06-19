@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All events</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<a th:href="@{/event/new}">New event</a>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Description</th>
+    <th scope="col">Event Date</th>
+    <th scope="col">Event Time</th>
+    <th scope="col">Community Name</th>
+    <th scope="col"></th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+
+  <!--/*@thymesVar id="events" type="com.syntra.tristanbrewee.miniCrm.model.Event"*/-->
+  <tbody th:if="${not #lists.isEmpty(events)}">
+  <tr th:each="i : ${#numbers.sequence(0, #lists.size(events) - 1)}">
+    <td th:text="${events[i].getDescription()}"></td>
+    <td th:text="${events[i].getEventDate()}"></td>
+    <td th:text="${events[i].getEventTime()}"></td>
+    <td th:text="${events[i].getCommunity().getDescription()}"></td>
+    <td>
+      <a th:text="edit" th:href="@{/event/specific/{id} (id = ${events[i].getEventId().toString()})}"></a>
+    </td>
+    <td>
+      <a th:text="delete" th:href="@{/event/delete/{id} (id = ${events[i].getEventId().toString()})}"></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<p th:if="${#lists.isEmpty(events)}">
+  No events to show...
+</p>
+</body>
+</html>

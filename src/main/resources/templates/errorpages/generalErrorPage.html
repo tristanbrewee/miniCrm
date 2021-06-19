@@ -1,0 +1,19 @@
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1>Invalid values detected</h1>
+
+<!--@thymesVar id="exception" type="com.syntra.tristanbrewee.miniCrm.exceptions.InvalidValueException"-->
+<p th:each="error, i : ${exception.getAllErrors()}" th:text="${error}"></p>
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

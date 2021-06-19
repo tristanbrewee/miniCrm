@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<form id="addressForm" th:id="addressForm" method="post" th:object="${specificPerson}" th:action="@{/address/new}">
+  <input id="personId" th:id="personId" type="hidden" th:field="*{personId}"
+         th:value="${specificPerson.getPersonId()}"/>
+
+  <div class="groupBlockLevel1">
+    <div class="singleLabelBlock">
+      <label for="street">Street:</label>
+      <input id="street" th:id="'street'" type="text"
+             th:field="*{completeAddress[__${0}__].street}"
+             th:placeholder="'street'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="houseNumber">House number:</label>
+      <input id="houseNumber" th:id="'houseNumber'" type="text"
+             th:field="*{completeAddress[__${0}__].houseNumber}"
+             th:placeholder="'house number'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="bus">Bus:</label>
+      <input id="bus" th:id="'bus'" type="text"
+             th:field="*{completeAddress[__${0}__].bus}"
+             th:placeholder="'bus'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="zip">Zip code:</label>
+      <input th:id="'zip'" id="zip" type="text"
+             th:field="*{completeAddress[__${0}__].zip}"
+             th:placeholder="'zip'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="city">City:</label>
+      <input id="city" th:id="'city'" type="text"
+             th:field="*{completeAddress[__${0}__].city}"
+             th:placeholder="'city'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="country">Country: </label>
+      <input id="country" th:id="'country'" type="text"
+             th:field="*{completeAddress[__${0}__].country}"
+             th:placeholder="'country'">
+    </div>
+    <br>
+
+    <div class="singleLabelBlock">
+      <label for="email">E-mail:</label>
+      <input id="email" th:id="'email'" type="text"
+             th:field="*{completeAddress[__${0}__].email}"
+             th:placeholder="'e-mail'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="mobile">Mobile:</label>
+      <input id="mobile" th:id="'mobile'" type="text"
+             th:field="*{completeAddress[__${0}__].mobile}"
+             th:placeholder="'mobile'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="phone">Phone:</label>
+      <input id="phone" th:id="'phone'" type="text"
+             th:field="*{completeAddress[__${0}__].phone}"
+             th:placeholder="'phone'">
+    </div>
+    <br>
+    <div class="singleLabelBlock">
+      <label for="type">Type:</label>
+      <select id="type" th:id="type" th:name="type">
+        <option th:each="value, i : ${T(com.syntra.tristanbrewee.miniCrm.model.enums.TypePossibilities).getValues()}" th:value="${value}" th:text="${value}"
+                th:selected="${T(com.syntra.tristanbrewee.miniCrm.model.enums.TypePossibilities).getValues().get(0)}"></option>
+      </select>
+    </div>
+  </div>
+  <input type="submit" value="Save">
+</form>
+
+</body>
+</html>

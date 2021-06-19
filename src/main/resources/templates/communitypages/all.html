@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Communities</title>
+  <link rel="stylesheet" th:href="@{../static/styles/general.css}" />
+</head>
+<body>
+
+<h1>All communities</h1>
+
+<table class="tableLevelOne">
+  <thead>
+  <tr>
+    <td>id</td>
+    <td>description</td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <!--/*@thymesVar id="communities" type="com.syntra.tristanbrewee.miniCrm.model.Community"*/-->
+  <tr th:each="i : ${#numbers.sequence(0, #lists.size(communities) - 1)}" th:if="${not #lists.isEmpty(communities)}">
+    <td th:text="${communities[i].getCommunityId()}"></td>
+    <td th:text="${communities[i].getDescription()}"></td>
+    <td>
+      <a th:href="@{/community/specific/{id}(id=${communities[i].getCommunityId().toString()})}">edit</a>
+    </td>
+    <td>
+      <a th:href="@{/community/delete/{id}(id=${communities[i].getCommunityId().toString()})}">delete</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<!--/*@thymesVar id="newCommunity" type="com.syntra.tristanbrewee.miniCrm.model.Community"*/-->
+<h2>Add new community</h2>
+<form th:action="@{/community/new}" th:object="${newCommunity}" method="post">
+  <input type="hidden" th:field="*{communityId}" th:value="-1">
+  <label for="description" th:text="'Description:'"></label>
+  <input id="description" type="text" th:placeholder="'community description'" th:field="*{description}">
+  <button type="submit" th:text="'Add community'"></button>
+</form>
+
+<p th:if="${#lists.isEmpty(communities)}">
+  No communities to show...
+</p>
+
+</body>
+</html>

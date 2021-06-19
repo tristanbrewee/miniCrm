@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Persons</title>
+  <link rel="stylesheet" th:href="@{../static/styles/general.css}" />
+</head>
+<body>
+
+<table class="tableLevelOne">
+  <thead>
+  <tr>
+    <td>last name</td>
+    <td>first name</td>
+    <td>birth date</td>
+  </tr>
+  </thead>
+  <tbody th:if="${not #lists.isEmpty(personListByActive)}">
+  <tr th:each="person, i : ${personListByActive}">
+    <td th:text="${person.getLastName()}"></td>
+    <td th:text="${person.getFirstName()}"></td>
+    <td th:text="${person.getBirthDate()}"></td>
+    <td>
+      <a th:href="@{/person/specific/{id}(id=${person.getPersonId().toString()})}">edit</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<a href="javascript:window.history.back()">Back</a>
+
+<p th:if="${#lists.isEmpty(personListByActive)}">
+  There are no people to show...
+</p>
+
+</body>
+</html>

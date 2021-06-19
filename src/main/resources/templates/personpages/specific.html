@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specific Person</title>
+    <link rel="stylesheet" href="../../static/styles/general.css"/>
+    <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<form id="personForm" th:id="personForm" method="post" th:object="${specificPerson}" th:action="@{/person}">
+    <fieldset>
+
+        <div class="mainForm">
+            <button id="save" th:id="save" type="submit" th:text="'Save all'"
+                    th:formaction="@{/person/update}"></button>
+            <button id="delete" th:id="delete" type="submit" th:text="'Delete all'"
+                    th:formaction="@{/person/delete}"></button>
+            <button id="reset" th:id="reset" type="reset" th:text="'Reset all'"></button>
+        </div>
+
+        <div class="groupBlockLevel1">
+            <h1>Personal info</h1>
+            <input id="personId" th:id="personId" type="hidden" th:field="*{personId}"
+                   th:value="${specificPerson.getPersonId()}"/>
+            <input id="isActive" th:id="'isActive'" type="hidden" th:field="*{isActive}"
+                    th:value="${specificPerson.getIsActive()}">
+            <div class="singleLabelBlock">
+                <label for="firstName">First name:</label>
+                <input id="firstName" th:id="'firstName'" type="text" th:placeholder="${specificPerson.getFirstName()}"
+                       th:field="*{firstName}"
+                       th:value="${specificPerson.getFirstName()}">
+            </div>
+            <br>
+            <div class="singleLabelBlock">
+                <label for="lastName">Last name:</label>
+                <input id="lastName" th:id="'lastName'" type="text" th:placeholder="${specificPerson.getLastName()}"
+                       th:field="*{lastName}"
+                       th:value="${specificPerson.getLastName()}">
+            </div>
+            <br>
+            <div class="singleLabelBlock">
+                <label for="birthDate">Birth date:</label>
+                <input id="birthDateString" th:id="'birthDateString'" type="date" th:name="birthDateString"
+                       th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(specificPerson.getBirthDate())}">
+            </div>
+            <br>
+            <div class="subButtons">
+                <button id="savePerson" th:id="savePerson" type="submit" th:text="'Save personal info'"
+                        th:formaction="@{/person/savePerson}"></button>
+            </div>
+        </div>
+        <hr>
+        <br>
+
+        <div class="groupBlockLevel1">
+            <h1>Addresses</h1>
+            <button id="addAddress" th:id="addAddress" type="submit" th:text="'Add new address'"
+                    th:formaction="@{/person/addAddress}"></button>
+            <div class="groupBlockLevel2"
+                 th:each="address, i : ${specificPerson.getCompleteAddress()}"
+                 th:if="${not #lists.isEmpty(specificPerson.getCompleteAddress()) and address.getAddressId() != null}">
+                <h2 th:text="'Address ' + ${i.index + 1}"></h2>
+                <input id="addressId" th:id="'addressId' + ${i.index}" type="hidden"
+                       th:field="*{completeAddress[__${i.index}__].addressId}"
+                       th:value="${specificPerson.getCompleteAddress()[i.index].getAddressId()}">
+                <div class="singleLabelBlock">
+                    <label for="street">Street:</label>
+                    <input id="street" th:id="'street' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].street}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getStreet()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getStreet()}">
+                </div>
+                <br>
+                <div class="singleLabelBlock">
+                    <label for="houseNumber">House number:</label>
+                    <input id="houseNumber" th:id="'houseNumber' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].houseNumber}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getHouseNumber()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getHouseNumber()}">
+                </div>
+                <br>
+                <div class="singleLabelBlock">
+                    <label for="bus">Bus:</label>
+                    <input id="bus" th:id="'bus' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].bus}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getBus()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getBus()}">
+                </div>
+                <br>
+                <div class="singleLabelBlock">
+                    <label for="zip">Zip code:</label>
+                    <input th:id="'zip' + ${i.index}" id="zip" type="text"
+                           th:field="*{completeAddress[__${i.index}__].zip}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getZip()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getZip()}">
+                </div>
+                <br>
+                <div class="singleLabelBlock">
+                    <label for="city">City:</label>
+                    <input id="city" th:id="'city' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].city}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getCity()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getCity()}">
+                </div>
+                <br>
+                <div class="singleLabelBlock">
+                    <label for="country">Country: </label>
+                    <input id="country" th:id="'country' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].country}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getCountry()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getCountry()}">
+                </div>
+                <br>
+
+                <div class="singleLabelBlock">
+                    <label for="email">E-mail:</label>
+                    <input id="email" th:id="'email' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].email}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getEmail()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getEmail()}">
+                </div>
+                <br>
+                <div class="singleLabelBlock">
+                    <label for="mobile">Mobile:</label>
+                    <input id="mobile" th:id="'mobile' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].mobile}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getMobile()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getMobile()}">
+                </div>
+                <br>
+                <div class="singleLabelBlock">
+                    <label for="phone">Phone:</label>
+                    <input id="phone" th:id="'phone' + ${i.index}" type="text"
+                           th:field="*{completeAddress[__${i.index}__].phone}"
+                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getPhone()}"
+                           th:value="${specificPerson.getCompleteAddress()[i.index].getPhone()}">
+                </div>
+                <br>
+<!--                <div class="singleLabelBlock">-->
+<!--                    <label for="type">Type:</label>-->
+<!--                    <input id="type" th:id="'type' + ${i.index}" type="text"-->
+<!--                           th:field="*{completeAddress[__${i.index}__].type}"-->
+<!--                           th:placeholder="${specificPerson.getCompleteAddress()[i.index].getType()}"-->
+<!--                           th:value="${specificPerson.getCompleteAddress()[i.index].getType()}">-->
+<!--                </div>-->
+                <div class="singleLabelBlock">
+                    <label for="type">Type:</label>
+                    <select id="type" th:id="'type' + ${i.index}" th:name="'type' + ${i.index}">
+                        <option th:each="value, j : ${T(com.syntra.tristanbrewee.miniCrm.model.enums.TypePossibilities).getValues()}" th:value="${value}" th:text="${value}"
+                                th:selected="${value.equals(specificPerson.getCompleteAddress()[i.index].getType())}"></option>
+                    </select>
+                </div>
+                <br>
+                <div class="subButtons">
+                    <button id="saveAddress" th:id="saveAddress" type="submit" th:text="'Save address'" th:name="'saveAddress' + ${i.index}"
+                            th:formaction="@{/person/saveAddress}"></button>
+                    <button id="deleteAddress" th:id="deleteAddress" type="submit" th:text="'Delete Address'" th:name="'deleteAddress' + ${i.index}"
+                            th:formaction="@{/person/deleteAddress}"></button>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <br>
+
+        <div class="groupBlockLevel1">
+            <h1>Communities</h1>
+            <button id="addCommunity" th:id="addCommunity" type="submit" th:text="'Add new Community'"
+                    th:formaction="@{/person/addCommunity}"></button>
+            <div class="groupBlockLevel2"
+                 th:each="community, i : ${specificPerson.getCompleteCommunities()}"
+                 th:if="${not #lists.isEmpty(specificPerson.getCompleteCommunities()) and community.getUntil() == null}">
+                <h2 th:text="'Community ' + ${i.index + 1}"></h2>
+                <input id="communityId" th:id="'communityId' + ${i.index}" type="hidden"
+                       th:field="*{completeCommunities[__${i.index}__].communityId}"
+                       th:value="${specificPerson.getCompleteCommunities()[i.index].getCommunityId()}">
+                    <div class="singleLabelBlock">
+                        <label for="description">Description:</label>
+                        <input id="description" th:id="'description' + ${i.index}"
+                               th:field="*{completeCommunities[__${i.index}__].description}" readonly="readonly"
+                               th:placeholder="${specificPerson.getCompleteCommunities()[i.index].getDescription()}"
+                               th:value="${specificPerson.getCompleteCommunities()[i.index].getDescription()}"></input>
+                    </div>
+                    <br>
+                    <div class="singleLabelBlock">
+                        <label for="since">Since:</label>
+                        <input id="sinceString" th:id="'sinceString' + ${i.index}" type="date"
+                               th:name="sinceString" readonly="readonly"
+                               th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(specificPerson.getCompleteCommunities()[i.index].getSince())}"></input>
+                    </div>
+                    <br>
+                    <div class="singleLabelBlock">
+                        <label for="until">Until:</label>
+                        <input id="untilString" th:id="'untilString' + ${i.index}"
+                               th:name="untilString" readonly="readonly"
+                               th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(specificPerson.getCompleteCommunities()[i.index].getUntil())}"></input>
+                    </div>
+                <div class="subButtons">
+                    <button id="deleteCommunity" th:id="deleteCommunity" type="submit" th:text="'Delete community'"
+                            th:formaction="@{/person/deleteCommunity}" th:name="'deleteCommunity' + ${i.index}"></button>
+                </div>
+            </div>
+        </div>
+        <br>
+        <hr>
+
+
+    </fieldset>
+</form>
+
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

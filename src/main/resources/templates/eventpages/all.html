@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Persons</title>
+  <link rel="stylesheet" th:href="@{../static/styles/general.css}" />
+</head>
+<body>
+
+<a th:href="@{/event/new}">New event</a>
+
+<table class="tableLevelOne">
+  <thead>
+  <tr>
+    <td>Id</td>
+    <td>Community Name</td>
+    <td>Event Date</td>
+    <td>Event Time</td>
+    <td>description</td>
+  </tr>
+  </thead>
+
+  <tbody>
+  <!--/*@thymesVar id="events" type="com.syntra.tristanbrewee.miniCrm.model.Event"*/-->
+  <tr th:each="i : ${#numbers.sequence(0, #lists.size(events) - 1)}" th:if="${not #lists.isEmpty(events)}">
+    <td th:text="${events[i].getEventId()}"></td>
+    <td th:text="${events[i].getCommunity().getDescription()}"></td>
+    <td th:text="${events[i].getEventDate()}"></td>
+    <td th:text="${events[i].getEventTime()}"></td>
+    <td>
+      <a th:text="${events[i].getDescription()}" th:href="@{/event/specific/{id} (id = ${events[i].getEventId().toString()})}"></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<p th:if="${#lists.isEmpty(events)}">
+  No events to show...
+</p>
+</body>
+</html>

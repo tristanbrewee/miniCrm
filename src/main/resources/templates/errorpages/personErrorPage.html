@@ -1,0 +1,24 @@
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1>Community already exists</h1>
+
+<!--@thymesVar id="exception" type="com.syntra.tristanbrewee.miniCrm.exceptions.PersonAlreadyExistsException"-->
+<h2>A community with the following credentials already exists</h2>
+<p th:text="'First name: ' + ${exception.getPerson().getFirstName()}"></p>
+<p th:text="'Last name: ' + ${exception.getPerson().getLastName()}"></p>
+<p th:text="'Birth date: ' + ${exception.getPerson().getBirthDate()}"></p>
+<br>
+<p>Tip: You might have the person set to inactive. Have a look at the inactive persons to reactivate.</p>
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

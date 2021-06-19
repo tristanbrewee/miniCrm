@@ -1,0 +1,23 @@
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1>Event already exists</h1>
+
+<!--@thymesVar id="exception" type="com.syntra.tristanbrewee.miniCrm.exceptions.EventAlreadyExistsException"-->
+<h2>An event with the following credentials already exists</h2>
+<p th:text="'description: ' + ${exception.getEvent().getDescription()}"></p>
+<p th:text="'date: ' + ${exception.getEvent().getEventDate()}"></p>
+<p th:text="'time: ' + ${exception.getEvent().getEventTime()}"></p>
+<p th:text="'community: ' + ${exception.getEvent().getCommunity.getDescription()}"></p>
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1>Unexpected error</h1>
+
+<p>An unexpected error has occurred. But not to worry.</p>
+<a th:href="@{/}">Back to home</a>
+
+<!--@thymesVar id="exception" type="java.lang.Exception"-->
+<h2 th:text="${exception.getMessage()}" th:value="${exception.getMessage()}"></h2>
+
+</body>
+</html>

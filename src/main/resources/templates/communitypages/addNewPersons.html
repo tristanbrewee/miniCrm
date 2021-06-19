@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specific Person</title>
+    <link rel="stylesheet" href="../../static/styles/general.css"/>
+    <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1 th:text="${specificCommunity.getDescription()}"></h1>
+
+<table>
+    <thead>
+    <tr>
+        <td>Last name</td>
+        <td>First name</td>
+        <td>Birth date</td>
+    </tr>
+    </thead>
+    <tbody th:if="${not #lists.isEmpty(notAddedPersons)}">
+    <tr th:each="person, i : ${notAddedPersons}">
+        <td th:text="${person.getLastName()}"></td>
+        <td th:text="${person.getFirstName()}"></td>
+        <td th:text="${person.getBirthDate()}"></td>
+        <td>
+            <a th:href="@{/community/addPerson/{id} (id = ${specificCommunity.getCommunityId()} + ':' + ${person.getPersonId()})}">subscribe</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p th:if="${#lists.isEmpty(notAddedPersons)}">
+    There are no more persons who aren't part of this community...
+</p>
+<a th:href="@{/community/specific/{id} (id = ${specificCommunity.getCommunityId()})}">back to community</a>
+
+</body>
+</html>

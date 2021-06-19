@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h2>Inactive persons</h2>
+
+<table class="tableLevelOne">
+  <thead>
+  <tr>
+    <td>last name</td>
+    <td>first name</td>
+    <td>birth date</td>
+  </tr>
+  </thead>
+  <tbody th:if="${not #lists.isEmpty(personsByInactive)}">
+  <tr th:each="person, i : ${personsByInactive}">
+    <td th:text="${person.getLastName()}"></td>
+    <td th:text="${person.getFirstName()}"></td>
+    <td th:text="${person.getBirthDate()}"></td>
+    <td>
+      <a th:href="@{/person/activate/{id} (id = ${person.getPersonId().toString()})}">activate</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<p th:if="${#lists.isEmpty(personsByInactive)}">
+  There are no inactive persons...
+</p>
+
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

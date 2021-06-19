@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Inactive persons</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">last name</th>
+    <th scope="col">first name</th>
+    <th scope="col">birth date</th>
+    <th scope="col"></th>
+  </tr>
+  </thead>
+  <tbody th:if="${not #lists.isEmpty(personsByInactive)}">
+  <tr th:each="person, i : ${personsByInactive}">
+    <td th:text="${person.getLastName()}"></td>
+    <td th:text="${person.getFirstName()}"></td>
+    <td th:text="${person.getBirthDate()}"></td>
+    <td>
+      <a th:href="@{/person/activate/{id} (id = ${person.getPersonId().toString()})}">activate</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<p th:if="${#lists.isEmpty(personsByInactive)}">
+  There are no inactive persons...
+</p>
+
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

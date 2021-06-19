@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1 th:text="${specificEvent.getDescription()}"></h1>
+
+<a th:href="@{/event/createLabels/{id} (id = ${specificEvent.getEventId().toString()})}">Create labels</a>
+
+<form th:object="${specificEvent}" method="post" th:action="@{/event/updateEvent}">
+  <div class="groupBlockLevel1">
+    <input type="hidden" th:field="*{eventId}">
+    <label for="description">Description:</label>
+    <input id="description" type="text" th:field="*{description}" th:placeholder="${specificEvent.getDescription()}">
+    <label for="date">Date:</label>
+    <input id="date" type="date" th:id="dateString" th:name="dateString" th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(specificEvent.getEventDate())}">
+    <label for="time">Time:</label>
+    <input type="time" th:id="timeString" th:name="timeString" id="time"
+           th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localTimeToString(specificEvent.getEventTime())}">
+    <label for="community">Community:</label>
+    <select id="community" th:id="communityDescription" th:name="communityDescription">
+      <option th:each="community, i : ${communities}" th:value="${community.getDescription()}" th:text="${community.getDescription()}"
+              th:selected="${community.getDescription().equals(specificEvent.getCommunity().getDescription())}"></option>
+    </select>
+    <input type="submit" th:value="'Save changes'">
+  </div>
+</form>
+
+</body>
+</html>

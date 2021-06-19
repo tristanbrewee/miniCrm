@@ -1,0 +1,31 @@
+.singleLabelBlock{
+    display: inline-block;
+    width: 140px;
+    text-align: right;
+}
+
+.groupBlockLevel1{
+    border: 3px solid black;
+    width: auto;
+    padding: 10px;
+    margin: 10px;
+}
+
+.groupBlockLevel2{
+    border: 2px solid black;
+    width: auto;
+    padding: 10px;
+    margin: 10px;
+}
+
+.mainForm{
+    border: 5px solid black;
+    width: auto;
+    padding: 10px;
+    margin: 10px;
+}
+
+.subButtons{
+    padding: 10px;
+    margin: 10px;
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specific Person</title>
+    <link rel="stylesheet" href="../../static/styles/general.css"/>
+    <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1>New person</h1>
+
+<form method="post" th:object="${newPerson}" th:action="@{/person/createNewPerson}">
+    <label for="lastName">Last name:</label>
+    <input type="text" id="lastName" th:id="lastName" th:name="lastName" th:placeholder="'last name'">
+    <label for="firstName">First name:</label>
+    <input type="text" id="firstName" th:id="firstName" th:name="firstName" th:placeholder="'first name'">
+    <label for="birthDate">Birth date:</label>
+    <input type="date" id="birthDate" th:id="birthDateString" th:name="birthDateString"
+           th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(T(java.time.LocalDate).now())}">
+    <input type="submit" th:value="'Create new person'">
+</form>
+
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>New person</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<h1>New person</h1>
+
+<form method="post" th:object="${newPerson}" th:action="@{/person/createNewPerson}">
+  <div class="form-group row">
+    <label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="lastName" th:id="lastName" th:name="lastName" th:placeholder="'last name'">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="firstName" class="col-sm-2 col-form-label">First name:</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="firstName" th:id="firstName" th:name="firstName" th:placeholder="'first name'">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="birthDate" class="col-sm-2 col-form-label">Birth date:</label>
+    <div class="col-sm-10">
+      <input type="date" class="form-control" id="birthDate" th:id="birthDateString" th:name="birthDateString"
+             th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(T(java.time.LocalDate).now())}">
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-10">
+      <button type="submit" class="btn btn-primary" th:text="'Create new person'"></button>
+    </div>
+  </div>
+</form>
+
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Specific Person</title>
+    <link rel="stylesheet" href="../../static/styles/general.css"/>
+    <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<h1 th:text="${specificCommunity.getDescription()}"></h1>
+
+<div class="groupBlockLevel1">
+    <h2>Members</h2>
+    <a th:href="@{/community/getAddNewPersons/{id} (id= ${specificCommunity.getCommunityId().toString()})}">Add new member</a>
+    <table th:if="${not #lists.isEmpty(completeMembers)}" class="tableLevelOne">
+        <thead>
+        <tr>
+            <td>last name</td>
+            <td>first name</td>
+            <td>since</td>
+            <td>until</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="completeMember, i : ${completeMembers}">
+            <td th:text="${completeMember.getLastName()}"></td>
+            <td th:text="${completeMember.getFirstName()}"></td>
+            <td th:text="${completeMember.getSince()}"></td>
+            <td th:text="${completeMember.getUntil()}"></td>
+            <td th:if="${completeMember.getUntil() == null}">
+                <a th:href="@{/community/unsubscribePerson/{id}(id=${completeMember.getPersonId().toString()} + ':' + ${specificCommunity.getCommunityId()})}">unsubscribe</a>
+            </td>
+            <td th:if="${completeMember.getUntil() != null}">
+                <a th:href="@{/community/subscribePerson/{id}(id=${completeMember.getPersonId().toString()} + ':' + ${specificCommunity.getCommunityId()})}">subscribe</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(completeMembers)}">
+        There are no members in this community...
+    </p>
+</div>
+
+<div class="groupBlockLevel1">
+    <h2>Events</h2>
+    <table class="groupBlockLevel1">
+        <thead>
+        <tr>
+            <td>Id</td>
+            <td>description</td>
+            <td>date</td>
+            <td>time</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="event, i : ${events}" th:if="${not #lists.isEmpty(events)}">
+            <td th:text="${event.getEventId}"></td>
+            <td>
+                <a th:text="${event.getDescription()}" th:href="@{/event/specific/{id} (id = ${event.getEventId().toString()})}"></a>
+            </td>
+            <td th:text="${event.getEventDate}"></td>
+            <td th:text="${event.getEventTime()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${#lists.isEmpty(events)}">
+        There are no events linked to this community...
+    </p>
+</div>
+
+<a href="javascript:window.history.back()">Back</a>
+
+</body>
+</html>

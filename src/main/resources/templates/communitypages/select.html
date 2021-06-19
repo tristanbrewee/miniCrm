@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Specific Person</title>
+  <link rel="stylesheet" href="../../static/styles/general.css"/>
+  <link rel="stylesheet" href="../../static/styles/forms.css"/>
+</head>
+<body>
+
+<form id="form" th:id="form" method="post" th:object="${specificPerson}" th:action="@{/person}">
+  <input type="hidden" th:field="${specificPerson.personId}">
+  <div class="groupBlockLevel1" th:each="community, i : ${communities}"
+         th:if="${not #lists.contains(communitiesOfPerson, community.getCommunityId())}">
+      <input readonly="readonly" th:id="description" th:value="${community.getDescription()}">
+      <button th:id="'addCommunity' + ${community.getCommunityId()}" th:name="'addCommunity' + ${community.getCommunityId()}"
+              th:text="'add this community'" th:formaction="@{/community/addToPerson}" type="submit"></button>
+  </div>
+    <p th:if="${#lists.size(communities) == #lists.size(communitiesOfPerson)}">
+        This person is a member of every community...
+    </p>
+</form>
+
+</body>
+</html>

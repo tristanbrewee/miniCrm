@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html xmls="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>Person: specific</title>
+    <!-- Favicon-->
+    <!--  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />-->
+    <!-- Bootstrap icons-->
+    <!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet" />-->
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <link href="../../static/css/styles.css" rel="stylesheet"/>
+    <!-- Ignore stylesheet -->
+    <link href="../../static/css/ignore.css" rel="stylesheet"/>
+    <!-- Icon Kit - Font Awesome-->
+    <script src="https://kit.fontawesome.com/8933c2663a.js" crossorigin="anonymous"></script>
+</head>
+<body class="bodyMargins">
+<!-- Responsive navbar-->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container px-lg-5">
+        <a class="navbar-brand" th:href="@{/}">Mini CRM</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+                class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" aria-current="page" th:href="@{/}">Home</a></li>
+                <li class="nav-item"><a class="nav-link active" th:href="@{/person}">Person</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/community}">Community</a></li>
+                <li class="nav-item"><a class="nav-link" th:href="@{/event}">Event</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Header-->
+<header class="py-5">
+    <div class="container px-lg-5">
+        <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+            <div class="m-4 m-lg-5">
+                <h1 class="display-5 fw-bold">Specific</h1>
+                <p class="fs-4">Edit a specific person. Change personal info. Add, edit, or delete addresses. Add, edit,
+                    or delete communities. Or delete the entire person all together.</p>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Page Content-->
+<form id="personForm" th:id="personForm" method="post" th:object="${specificPerson}" th:action="@{/person}">
+    <fieldset>
+
+        <!-- General buttons -->
+        <section class="pt-4">
+            <div class="container px-lg-5">
+                <div class="row gx-lg-5">
+                    <div class="col-lg-12 col-xxl-12 mb-12">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center">
+                                <div class="form-group row">
+                                    <div class="col-sm-10 buttonsLeft">
+                                        <button id="save" class="btn btn-primary" th:id="save" type="submit"
+                                                th:text="'Save all'"
+                                                th:formaction="@{/person/update}"></button>
+                                        <button id="delete" class="btn btn-primary" th:id="delete" type="submit"
+                                                th:text="'Delete all'"
+                                                th:formaction="@{/person/delete}"></button>
+                                        <button id="reset" class="btn btn-primary" th:id="reset" type="reset"
+                                                th:text="'Reset all'"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Personal info -->
+        <section class="pt-4">
+            <div class="container px-lg-5">
+                <div class="row gx-lg-5">
+                    <div class="col-lg-12 col-xxl-12 mb-12">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center">
+                                <h1>Personal info</h1>
+                                <input id="personId" th:id="personId" type="hidden" th:field="*{personId}"
+                                       th:value="${specificPerson.getPersonId()}"/>
+                                <input id="isActive" th:id="'isActive'" type="hidden" th:field="*{isActive}"
+                                       th:value="${specificPerson.getIsActive()}">
+                                <div class="form-group row">
+                                    <label for="firstName" class="col-sm-2 col-form-label">First name:</label>
+                                    <div class="col-sm-10">
+                                        <input id="firstName" class="form-control" th:id="'firstName'" type="text" th:placeholder="${specificPerson.getFirstName()}"
+                                               th:field="*{firstName}"
+                                               th:value="${specificPerson.getFirstName()}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lastName" class="col-sm-2 col-form-label">Last name:</label>
+                                    <div class="col-sm-10">
+                                        <input id="lastName" class="form-control" th:id="'lastName'" type="text" th:placeholder="${specificPerson.getLastName()}"
+                                               th:field="*{lastName}"
+                                               th:value="${specificPerson.getLastName()}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="birthDate" class="col-sm-2 col-form-label">Birth date:</label>
+                                    <div class="col-sm-10">
+                                        <input id="birthDate" class="form-control" th:id="'birthDateString'" type="date" th:name="birthDateString"
+                                               th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(specificPerson.getBirthDate())}">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-10 buttonsLeft">
+                                        <button id="savePerson" class="btn btn-primary" th:id="savePerson" type="submit" th:text="'Save personal info'"
+                                                th:formaction="@{/person/savePerson}"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Addresses -->
+        <section class="pt-4">
+            <div class="container px-lg-5">
+                <div class="row gx-lg-5">
+                    <h1>Addresses</h1>
+                    <!-- General buttons -->
+                    <div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button id="addAddress" class="btn btn-primary" th:id="addAddress" type="submit" th:text="'Add new address'"
+                                        th:formaction="@{/person/addAddress}"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single address -->
+                    <div class="col-lg-6 col-xxl-6 mb-5"
+                         th:each="address, i : ${specificPerson.getCompleteAddress()}"
+                         th:if="${not #lists.isEmpty(specificPerson.getCompleteAddress()) and address.getAddressId() != null}">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center">
+                                <h2 th:text="'Address ' + ${i.index + 1}"></h2>
+                                <input id="addressId" th:id="'addressId' + ${i.index}" type="hidden"
+                                       th:field="*{completeAddress[__${i.index}__].addressId}"
+                                       th:value="${specificPerson.getCompleteAddress()[i.index].getAddressId()}">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-8">
+                                        <label for="street">Street:</label>
+                                        <input id="street" class="form-control" th:id="'street' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].street}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getStreet()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getStreet()}">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="houseNumber">House number:</label>
+                                        <input id="houseNumber" class="form-control" th:id="'houseNumber' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].houseNumber}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getHouseNumber()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getHouseNumber()}">
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <label for="bus">Bus:</label>
+                                        <input id="bus" class="form-control" th:id="'bus' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].bus}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getBus()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getBus()}">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="city">City:</label>
+                                        <input id="city" class="form-control" th:id="'city' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].city}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getCity()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getCity()}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="zip">Zip code:</label>
+                                        <input th:id="'zip' + ${i.index}" id="zip" class="form-control" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].zip}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getZip()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getZip()}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="country">Country: </label>
+                                        <input id="country" class="form-control" th:id="'country' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].country}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getCountry()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getCountry()}">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="email">E-mail:</label>
+                                        <input id="email" class="form-control" th:id="'email' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].email}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getEmail()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getEmail()}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="mobile">Mobile:</label>
+                                        <input id="mobile" class="form-control" th:id="'mobile' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].mobile}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getMobile()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getMobile()}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="phone">Phone:</label>
+                                        <input id="phone" class="form-control" th:id="'phone' + ${i.index}" type="text"
+                                               th:field="*{completeAddress[__${i.index}__].phone}"
+                                               th:placeholder="${specificPerson.getCompleteAddress()[i.index].getPhone()}"
+                                               th:value="${specificPerson.getCompleteAddress()[i.index].getPhone()}">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-2">
+                                        <label for="type">Type:</label>
+                                        <select id="type" class="form-control" th:id="'type' + ${i.index}" th:name="'type' + ${i.index}">
+                                            <option th:each="value, j : ${T(com.syntra.tristanbrewee.miniCrm.model.enums.TypePossibilities).getValues()}" th:value="${value}" th:text="${value}"
+                                                    th:selected="${value.equals(specificPerson.getCompleteAddress()[i.index].getType())}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10 buttonsLeft">
+                                        <button id="saveAddress" class="btn btn-primary" th:id="saveAddress" type="submit" th:text="'Save address'" th:name="'saveAddress' + ${i.index}"
+                                                th:formaction="@{/person/saveAddress}"></button>
+                                        <button id="deleteAddress" class="btn btn-primary" th:id="deleteAddress" type="submit" th:text="'Delete Address'" th:name="'deleteAddress' + ${i.index}"
+                                                th:formaction="@{/person/deleteAddress}"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Communities -->
+        <section class="pt-4">
+            <div class="container px-lg-5">
+                <div class="row gx-lg-5">
+                    <h1>Communities</h1>
+                    <!-- General buttons -->
+                    <div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <button id="addCommunity" class="btn btn-primary" th:id="addCommunity" type="submit" th:text="'Add new Community'"
+                                        th:formaction="@{/person/addCommunity}"></button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single community -->
+                    <div class="col-lg-6 col-xxl-4 mb-5"
+                         th:each="community, i : ${specificPerson.getCompleteCommunities()}"
+                         th:if="${not #lists.isEmpty(specificPerson.getCompleteCommunities()) and community.getUntil() == null}">
+                        <div class="card bg-light border-0 h-100">
+                            <div class="card-body text-center">
+                                <h2 th:text="'Community ' + ${i.index + 1}"></h2>
+                                <input id="communityId" th:id="'communityId' + ${i.index}" type="hidden"
+                                       th:field="*{completeCommunities[__${i.index}__].communityId}"
+                                       th:value="${specificPerson.getCompleteCommunities()[i.index].getCommunityId()}">
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="description">Description:</label>
+                                        <input id="description" class="form-control" th:id="'description' + ${i.index}" type="text"
+                                               th:field="*{completeCommunities[__${i.index}__].description}" readonly="readonly"
+                                               th:placeholder="${specificPerson.getCompleteCommunities()[i.index].getDescription()}"
+                                               th:value="${specificPerson.getCompleteCommunities()[i.index].getDescription()}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="since">Since:</label>
+                                        <input id="since" class="form-control" th:id="'sinceString' + ${i.index}" type="text"
+                                               th:name="sinceString" readonly="readonly"
+                                               th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).dateAsStringNormalize(T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(specificPerson.getCompleteCommunities()[i.index].getSince()))}">
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="until">Until:</label>
+                                        <input id="until" class="form-control" th:id="'untilString' + ${i.index}" type="text"
+                                               th:name="untilString" readonly="readonly"
+                                               th:value="${T(com.syntra.tristanbrewee.miniCrm.utils.Conversions).localDateToString(specificPerson.getCompleteCommunities()[i.index].getUntil())}">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <div class="col-sm-10 buttonsLeft">
+                                        <button id="deleteCommunity" class="btn btn-primary" th:id="deleteCommunity" type="submit" th:text="'Delete community'"
+                                                th:formaction="@{/person/deleteCommunity}" th:name="'deleteCommunity' + ${i.index}"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <a href="javascript:window.history.back()">
+            <i class="fas fa-long-arrow-alt-left"></i> Back
+        </a>
+
+    </fieldset>
+</form>
+<!-- Footer-->
+<footer class="py-5 bg-dark footerBottom">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Tristan Brewee - 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
