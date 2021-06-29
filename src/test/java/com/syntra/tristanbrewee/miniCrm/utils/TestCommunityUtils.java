@@ -24,7 +24,7 @@ public class TestCommunityUtils {
         invalidDescription = ";:=;=:";
         nullString = null;
         errorDescriptionNull = "Description can't be null";
-        errorDescriptionInvalid = "Description can only contain numbers and letters";
+        errorDescriptionInvalid = "Description can only contain letters, numbers, single dashes, single apostrophes, and single spaces";
     }
 
     @Test
