@@ -107,4 +107,12 @@ public class Address {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public List<Person> getPerson_address() {
+        return person_address;
+    }
+
+    public void setPerson_address(List<Person> person_address) {
+        this.person_address = person_address;
+    }
 }

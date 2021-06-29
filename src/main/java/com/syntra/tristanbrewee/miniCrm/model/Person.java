@@ -59,8 +59,6 @@ public class Person {
     }
 
     //Overrides
-
-
     @Override
     public boolean equals(Object o) {
         if (o == null)
@@ -70,7 +68,7 @@ public class Person {
         if (o.getClass() != this.getClass())
             return false;
         Person person = (Person) o;
-        return (person.getPersonId() == this.getPersonId()
+        return (person.getPersonId().equals(this.getPersonId())
         && person.getLastName().equals(this.getLastName())
         && person.getFirstName().equals(this.getFirstName())
         && person.getActive() == this.getActive()
