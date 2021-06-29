@@ -44,7 +44,7 @@ public class TestEventUtils {
         inOneHour = LocalTime.now().plusHours(1);
 
         errorDescriptionNull = "Description can't be null";
-        errorDescriptionInvalid = "Description can contain only letters and numbers";
+        errorDescriptionInvalid = "Description can only contain letters, numbers, single dashes, single apostrophes, and single spaces";
         errorDateBeforeToday = "Event date can't be before today";
         errorTimeBeforeNow = "If event date is today, then event time must be after this moment";
     }
