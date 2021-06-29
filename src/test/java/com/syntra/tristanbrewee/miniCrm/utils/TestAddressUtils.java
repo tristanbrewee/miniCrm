@@ -52,7 +52,7 @@ public class TestAddressUtils {
         zipInvalid = "qvfd";
         zipValid = "9000";
         countryInvalid = "123";
-        countryValid = "België";
+        countryValid = "Nederland";
         cityInvalid = "123";
         cityValid = "Gent";
 
@@ -80,12 +80,12 @@ public class TestAddressUtils {
         errorZipNull = "Zip can't be null if any value isn't null";
         errorCountryNull = "Country can't be null if any value isn't null";
 
-        errorStreetInvalid = "Street can not contain any numbers";
+        errorStreetInvalid = "Street can only contain letters, single dashes, and single spaces";
         errorHouseNumberInvalid = "House number can only contain numbers";
-        errorBusInvalid = "Bus can only contain numbers and letters";
-        errorCityInvalid = "City can not contain any numbers";
+        errorBusInvalid = "Bus can only contain numbers, letters, single dashes, and single slashes";
+        errorCityInvalid = "City can only contain letters, single dashes, and single spaces";
         errorZipInvalid = "Zip can only contain numbers";
-        errorCountryInvalid = "Country can not contain any numbers";
+        errorCountryInvalid = "Country can only contain letters, single dashes, single apostrophes, and single spaces";
     }
 
     @Test
