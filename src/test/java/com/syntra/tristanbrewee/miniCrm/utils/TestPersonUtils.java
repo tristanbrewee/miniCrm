@@ -52,8 +52,8 @@ public class TestPersonUtils {
         errorFirstNameNull = "The first name can't be null";
         errorLastNameNull = "The last name can't be null";
         errorBirthDateInvalid = "The birth date must be no later then today";
-        errorFirstNameInvalid = "The first name can't contain any numbers";
-        errorLastNameInvalid = "The last name can't contain any numbers";
+        errorFirstNameInvalid = "The first name can only contain letters, single dashes, single apostrophes, and single spaces";
+        errorLastNameInvalid = "The last name can only contain letters, single dashes, single apostrophes, and single spaces";
     }
 
     @Test
